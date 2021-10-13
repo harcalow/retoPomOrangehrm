@@ -23,9 +23,6 @@ public class CommonActionsOnPages {
         webDriverExplicitWaitConfiguration(this.driver, seconds);
     }
 
-
-
-
     public void clear(By webElement){
         driver.findElement(webElement).clear();
     }

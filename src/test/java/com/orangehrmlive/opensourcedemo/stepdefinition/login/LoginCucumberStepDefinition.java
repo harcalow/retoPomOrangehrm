@@ -17,7 +17,7 @@ public class LoginCucumberStepDefinition extends WebUI{
     private LoginModel loginmodel;
     private Login login;
     private static final String ASSERTION_EXCEPTION_MESSAGE = "Los valores suministrados no son los esperados.";
-
+    private int TEN_SECONDS=10;
     @Given("El empleado ingresa a la página principal donde se le solicita usuario y contraseña")
     public void elEmpleadoIngresaALaPaginaPrincipalDondeSolicitaUsuarioYContraseña() {
         try {
@@ -51,6 +51,7 @@ public class LoginCucumberStepDefinition extends WebUI{
             quitDriver();
         }else{
             Assertions.fail(ASSERTION_EXCEPTION_MESSAGE);
+            quitDriver();
         }
     }
 
@@ -61,7 +62,7 @@ public class LoginCucumberStepDefinition extends WebUI{
             LoginModel loginModel = new LoginModel();
             loginModel.setUsername("Admin");
             loginModel.setPassword("adminMAL656");
-            login = new Login(driver, loginModel,10);
+            login = new Login(driver, loginModel,TEN_SECONDS);
             login.fillLoginPanel();
 
         }catch (Exception exception){
@@ -78,7 +79,7 @@ public class LoginCucumberStepDefinition extends WebUI{
             LoginModel loginModel = new LoginModel();
             loginModel.setUsername("AdminMAL");
             loginModel.setPassword("admin123");
-            login = new Login(driver, loginModel,10);
+            login = new Login(driver, loginModel,TEN_SECONDS);
             login.fillLoginPanel();
 
         }catch (Exception exception){
@@ -90,7 +91,6 @@ public class LoginCucumberStepDefinition extends WebUI{
 
     }
 
-
     @When("El empleado no introduce ningun usuario y tampoco un password y esta da clic en el botón login")
     public void elEmpleadoNoIntroduceNingunUsuarioYTampocoUnPasswordYEstaDaClicEnElBotónLogin() {
         // Write code here that turns the phrase above into concrete actions
@@ -98,7 +98,7 @@ public class LoginCucumberStepDefinition extends WebUI{
             LoginModel loginModel = new LoginModel();
             loginModel.setUsername("");
             loginModel.setPassword("");
-            login = new Login(driver, loginModel,10);
+            login = new Login(driver, loginModel,TEN_SECONDS);
             login.fillLoginPanel();
 
         }catch (Exception exception){
@@ -115,6 +115,7 @@ public class LoginCucumberStepDefinition extends WebUI{
             quitDriver();
         }else{
             Assertions.fail(ASSERTION_EXCEPTION_MESSAGE);
+            quitDriver();
         }
     }
 }

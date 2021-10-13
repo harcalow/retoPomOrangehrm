@@ -15,7 +15,7 @@ public class AdministrativemoduleCucumberStepDefinitions extends WebUI {
     private LoginModel loginmodel;
     private Login login;
     private static final String ASSERTION_EXCEPTION_MESSAGE = "Los valores suministrados no son los esperados.";
-
+    private int TEN_SECONDS=10;
     @Given("El empleado ingresa a la página principal donde se le solicita usuario y contraseña este los ingresa luego de esto ira a Admin luego a User management y users")
     public void elEmpleadoIngresaALaPáginaPrincipalDondeSeLeSolicitaUsuarioYContraseñaEsteLosIngresaLuegoDeEstoIraAAdminLuegoAUserManagementYUsers() {
         try {
@@ -23,7 +23,7 @@ public class AdministrativemoduleCucumberStepDefinitions extends WebUI {
             LoginModel loginModel = new LoginModel();
             loginModel.setUsername("Admin");
             loginModel.setPassword("admin123");
-            login = new Login(driver, loginModel,10);
+            login = new Login(driver, loginModel,TEN_SECONDS);
             login.fillLoginPanel();
             login.pathAdminUsermanagementUsers();
         }catch (Exception exception){
@@ -36,7 +36,14 @@ public class AdministrativemoduleCucumberStepDefinitions extends WebUI {
     @When("El empleado seleccionara status y ecogera la opción deseada y finalizara dando clic en Search donde se hará la búsqueda")
     public void elEmpleadoSeleccionaraStatusYEcogeraLaOpciónDeseadaYFinalizaraDandoClicEnSearchDondeSeHaráLaBúsqueda() {
         // Write code here that turns the phrase above into concrete actions
-        login.searchStatus("Enable");
+        try {
+            login.searchStatus("Enable");
+        }catch (Exception exception){
+            quitDriver();
+            LOGGER.error(exception.getMessage(), exception);
+            Assertions.fail(exception.getMessage());
+        }
+
     }
     @Then("Se buscaran los usuarios dependiendo su status")
     public void seBuscaranLosUsuariosDependiendoSuStatus() {
@@ -44,6 +51,7 @@ public class AdministrativemoduleCucumberStepDefinitions extends WebUI {
             quitDriver();
         }else{
             Assertions.fail(ASSERTION_EXCEPTION_MESSAGE);
+            quitDriver();
         }
     }
 }
