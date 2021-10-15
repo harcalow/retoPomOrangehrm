@@ -35,7 +35,7 @@ public class LoginCucumberStepDefinition extends WebUI{
             LoginModel loginModel = new LoginModel();
             loginModel.setUsername("Admin");
             loginModel.setPassword("admin123");
-            login = new Login(driver, loginModel,10);
+            login = new Login(driver, loginModel,TEN_SECONDS);
             login.fillLoginPanel();
 
         }catch (Exception exception){
